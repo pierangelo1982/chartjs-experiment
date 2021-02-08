@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col col12 col-md-6">
+                    <canvas id="myChart" class="col-12" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        <script>
+        
+        function random_rgba() {
+            var o = Math.round, r = Math.random, s = 255;
+            return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+        }
+
+        const firstChart = () => {
+            // read data
+            var request = new XMLHttpRequest();
+            request.open("GET", "./data/gas_serra.json", false);
+            request.send(null)
+            var items = JSON.parse(request.responseText);
+            console.log("items", items);
+
+            var labels = [];
+            var data = [];
+            colors = [];
+            //create data
+            items.map(item => {
+                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
+                labels.push(item.Regione)
+                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+                var color = random_rgba();
+                colors.push(color);
+            })
+            
+            // create chart
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        firstChart();
+        </script>
+    </body>
+</html>
