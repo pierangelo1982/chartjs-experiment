@@ -7,7 +7,19 @@
         <div class="container">
             <div class="row">
                 <div class="col col12 col-md-6">
-                    <canvas id="myChart" class="col-12" height="400"></canvas>
+                    <canvas id="myChart" class="col-12" height="600"></canvas>
+                </div>
+                <div class="col col12 col-md-6">
+                    <canvas id="myChart2" class="col-12" height="600"></canvas>
+                </div>
+                <div class="col col12 col-md-6">
+                    <canvas id="myChart3" class="col-12" height="600"></canvas>
+                </div>
+                <div class="col col12 col-md-6">
+                    <canvas id="myChart4" class="col-12" height="600"></canvas>
+                </div>
+                <div class="col col12 col-md-6">
+                    <canvas id="myChart5" class="col-12" height="600"></canvas>
                 </div>
             </div>
         </div>
@@ -18,7 +30,7 @@
             return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
         }
 
-        const firstChart = () => {
+        const barChartCo2Region = () => {
             // read data
             var request = new XMLHttpRequest();
             request.open("GET", "./data/gas_serra.json", false);
@@ -64,7 +76,208 @@
             });
         }
 
-        firstChart();
+        const barChartCo2RegionDoughnout = () => {
+            
+            // read data
+            var request = new XMLHttpRequest();
+            request.open("GET", "./data/gas_serra.json", false);
+            request.send(null)
+            var items = JSON.parse(request.responseText);
+            console.log("items", items);
+
+
+            var labels = [];
+            var data = [];
+            colors = [];
+
+            //create data
+            items.map(item => {
+                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
+                labels.push(item.Regione)
+                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+                var color = random_rgba();
+                colors.push(color);
+            })
+
+            var ctx = document.getElementById('myChart2').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                            fontColor: "#000080",
+                        }
+                    },
+                }
+
+            });
+        }
+
+        const barChartCo2RegionPie = () => {
+            
+            // read data
+            var request = new XMLHttpRequest();
+            request.open("GET", "./data/gas_serra.json", false);
+            request.send(null)
+            var items = JSON.parse(request.responseText);
+            console.log("items", items);
+
+
+            var labels = [];
+            var data = [];
+            colors = [];
+
+            //create data
+            items.map(item => {
+                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
+                labels.push(item.Regione)
+                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+                var color = random_rgba();
+                colors.push(color);
+            })
+
+            var ctx = document.getElementById('myChart3').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: true,
+                        position: 'left',
+                        labels: {
+                            fontColor: "#000080",
+                        }
+                    },
+                }
+
+            });
+        }
+        
+        const barChartCo2RegionPolar = () => {
+            
+            // read data
+            var request = new XMLHttpRequest();
+            request.open("GET", "./data/gas_serra.json", false);
+            request.send(null)
+            var items = JSON.parse(request.responseText);
+            console.log("items", items);
+
+
+            var labels = [];
+            var data = [];
+            colors = [];
+
+            //create data
+            items.map(item => {
+                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
+                labels.push(item.Regione)
+                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+                var color = random_rgba();
+                colors.push(color);
+            })
+
+            var ctx = document.getElementById('myChart4').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                            fontColor: "#000080",
+                        }
+                    },
+                }
+
+            });
+        }
+
+        const barChartCo2RegionRadar = () => {
+            
+            // read data
+            var request = new XMLHttpRequest();
+            request.open("GET", "./data/gas_serra.json", false);
+            request.send(null)
+            var items = JSON.parse(request.responseText);
+            console.log("items", items);
+
+
+            var labels = [];
+            var data = [];
+            colors = [];
+
+            //create data
+            items.map(item => {
+                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
+                labels.push(item.Regione)
+                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+                var color = random_rgba();
+                colors.push(color);
+            })
+
+            var ctx = document.getElementById('myChart5').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            fontColor: "#000080",
+                        }
+                    },
+                }
+
+            });
+        }
+
+        barChartCo2Region();
+        barChartCo2RegionDoughnout();
+        barChartCo2RegionPie();
+        barChartCo2RegionPolar();
+        barChartCo2RegionRadar();
+
         </script>
     </body>
 </html>
