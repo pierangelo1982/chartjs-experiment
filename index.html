@@ -254,12 +254,17 @@
                 },
                 options: {
                     legend: {
-                        display: true,
+                        display: false,
                         position: 'right',
                         labels: {
                             fontColor: fontLegendaColor,
                         }
                     },
+                    scales: {
+                        gridLines: {
+                            color: '#ffffff',
+                        }
+                    }
                 }
 
             });
@@ -309,6 +314,14 @@
                             fontColor: fontLegendaColor,
                         }
                     },
+                    scale: {
+                        angleLines: {
+                            fontColor: fontLegendaColor,
+                        },
+                        pointLabels: {
+                                fontColor: fontLegendaColor,
+                        }
+                    }
                 }
 
             });
@@ -358,6 +371,22 @@
                             fontColor: fontLegendaColor,
                         }
                     },
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            ticks: {
+                                fontColor: fontLegendaColor,
+                                beginAtZero: true
+                            }
+                        }],
+                        yAxes: [{
+                            stacked: true,
+                            ticks: {
+                                fontColor: fontLegendaColor,
+                                beginAtZero: true
+                            }
+                        }]
+                    },
                 }
 
             });
@@ -400,10 +429,18 @@
                 options: {
                     scales: {
                         xAxes: [{
-                            stacked: true
+                            stacked: true,
+                            ticks: {
+                                fontColor: fontLegendaColor,
+                                beginAtZero: true
+                            }
                         }],
                         yAxes: [{
-                            stacked: true
+                            stacked: true,
+                            ticks: {
+                                fontColor: fontLegendaColor,
+                                beginAtZero: true
+                            }
                         }]
                     },
                     legend: {
