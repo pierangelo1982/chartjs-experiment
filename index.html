@@ -2,29 +2,57 @@
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./style.css" rel="stylesheet">
     </head>
-    <body>
+    <body class="bg-dark">
         <div class="container">
+
+            <header class="mt-auto">
+                <div>
+                  <h3 class="float-md-start mb-0">Cover</h3>
+                  <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="#">Contact</a>
+                  </nav>
+                </div>
+            </header>
+            
             <div class="row">
-                <div class="col col12 col-md-6">
+                <div class="col col-12 col-md-6">
                     <canvas id="myChart" class="col-12" height="600"></canvas>
                 </div>
-                <div class="col col12 col-md-6">
+                <div class="col col-12 col-md-6">
                     <canvas id="myChart2" class="col-12" height="600"></canvas>
                 </div>
-                <div class="col col12 col-md-6">
+                <div class="col col-12 col-md-6">
                     <canvas id="myChart3" class="col-12" height="600"></canvas>
                 </div>
-                <div class="col col12 col-md-6">
+                <div class="col col-12 col-md-6">
                     <canvas id="myChart4" class="col-12" height="600"></canvas>
                 </div>
-                <div class="col col12 col-md-6">
+                <div class="col col-12 col-md-6">
                     <canvas id="myChart5" class="col-12" height="600"></canvas>
                 </div>
-            </div>
+                <div class="col col-12 col-md-6">
+                    <canvas id="myChart6" class="col-12" height="600"></canvas>
+                </div>
+                <div class="col col-12 col-md-6">
+                    <canvas id="myChart7" class="col-12" height="600"></canvas>
+                </div>
+            </div><!--/row -->
+            
+            
         </div>
-        <script>
         
+        <footer class="mt-auto text-white-50" style="margin-top: 100px;">
+            <div class="container">
+                <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+            </div>
+        </footer>
+        
+        <script>
+        const fontLegendaColor = "#cccccc"
         function random_rgba() {
             var o = Math.round, r = Math.random, s = 255;
             return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
@@ -61,14 +89,28 @@
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
-                        borderWidth: 1
+                        borderWidth: 1,
                     }]
                 },
                 options: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            fontColor: fontLegendaColor,
+                        },
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {
+                                fontColor: fontLegendaColor,
                                 beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontColor: fontLegendaColor,
+                                //beginAtZero: true
                             }
                         }]
                     }
@@ -117,7 +159,7 @@
                         display: true,
                         position: 'right',
                         labels: {
-                            fontColor: "#000080",
+                            fontColor: fontLegendaColor,
                         }
                     },
                 }
@@ -166,7 +208,7 @@
                         display: true,
                         position: 'left',
                         labels: {
-                            fontColor: "#000080",
+                            fontColor: fontLegendaColor,
                         }
                     },
                 }
@@ -215,7 +257,7 @@
                         display: true,
                         position: 'right',
                         labels: {
-                            fontColor: "#000080",
+                            fontColor: fontLegendaColor,
                         }
                     },
                 }
@@ -264,7 +306,7 @@
                         display: true,
                         position: 'bottom',
                         labels: {
-                            fontColor: "#000080",
+                            fontColor: fontLegendaColor,
                         }
                     },
                 }
@@ -272,11 +314,118 @@
             });
         }
 
+        const barChartCo2RegionLine = () => {
+            
+            // read data
+            var request = new XMLHttpRequest();
+            request.open("GET", "./data/gas_serra.json", false);
+            request.send(null)
+            var items = JSON.parse(request.responseText);
+            console.log("items", items);
+
+
+            var labels = [];
+            var data = [];
+            colors = [];
+
+            //create data
+            items.map(item => {
+                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
+                labels.push(item.Regione)
+                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+                var color = random_rgba();
+                colors.push(color);
+            })
+
+            var ctx = document.getElementById('myChart6').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            fontColor: fontLegendaColor,
+                        }
+                    },
+                }
+
+            });
+        }
+
+        const barChartCo2Region2 = () => {
+            // read data
+            var request = new XMLHttpRequest();
+            request.open("GET", "./data/gas_serra.json", false);
+            request.send(null)
+            var items = JSON.parse(request.responseText);
+            console.log("items", items);
+
+            var labels = [];
+            var data = [];
+            colors = [];
+            //create data
+            items.map(item => {
+                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
+                labels.push(item.Regione)
+                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+                var color = random_rgba();
+                colors.push(color);
+            })
+            
+            // create chart
+            var ctx = document.getElementById('myChart7').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            stacked: true
+                        }],
+                        yAxes: [{
+                            stacked: true
+                        }]
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            fontColor: fontLegendaColor,
+                        }
+                    },
+
+                }
+            });
+        }
+
+
         barChartCo2Region();
         barChartCo2RegionDoughnout();
         barChartCo2RegionPie();
         barChartCo2RegionPolar();
         barChartCo2RegionRadar();
+        barChartCo2RegionLine();
+        barChartCo2Region2();
 
         </script>
     </body>
