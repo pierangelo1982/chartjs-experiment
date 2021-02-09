@@ -1,0 +1,10 @@
+.menu li {
+    display: inline;
+    padding-left: 15px;
+    color: #ffffff;
+}
+
+.menu {position:relative; margin: 0 auto;}
+.menu li a,
+.menu li a:link,
+.menu li a:hover {color: #ffffff;font-size: 11pt;text-decoration: none;}

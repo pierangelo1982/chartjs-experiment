@@ -45,33 +45,27 @@
             
             <div class="row" style="padding-bottom: 100px;">
                 <div class="col col-12">
-                    <h3 class="text-center text-light py-4">Emissioni in tonnellate equivalenti CO2 per Regioni Italiane</h3>
+                    <h3 class="text-center text-light py-4">Percentuale Reciclo nella Provincia di Brescia</h3>
                 </div>
-                <div class="col col-12 col-md-6">
+                <div class="col col-12 col-md-12">
+                    <canvas id="myChart7" class="col-12" height="1600"></canvas>
+                </div>
+                <div class="col col-12 col-md-12">
                     <canvas id="myChart" class="col-12" height="600"></canvas>
                 </div>
-                <div class="col col-12 col-md-6">
-                    <canvas id="myChart2" class="col-12" height="600"></canvas>
+                <div class="col col-12 col-md-12">
+                    <canvas id="myChart4" class="col-12" height="1200"></canvas>
                 </div>
-                <div class="col col-12 col-md-6">
-                    <canvas id="myChart3" class="col-12" height="600"></canvas>
+                <div class="col col-12 col-md-12">
+                    <canvas id="myChart5" class="col-12" height="1500"></canvas>
                 </div>
-                <div class="col col-12 col-md-6">
-                    <canvas id="myChart4" class="col-12" height="600"></canvas>
-                </div>
-                <div class="col col-12 col-md-6">
-                    <canvas id="myChart5" class="col-12" height="600"></canvas>
-                </div>
-                <div class="col col-12 col-md-6">
+                <div class="col col-12 col-md-12">
                     <canvas id="myChart6" class="col-12" height="600"></canvas>
-                </div>
-                <div class="col col-12 col-md-6">
-                    <canvas id="myChart7" class="col-12" height="600"></canvas>
                 </div>
             </div><!--/row -->
             
             
-        </div>
+        </!--div>
         
         <footer class="mt-auto text-white-50" style="margin-top: 100px;">
             <div class="container">
@@ -86,10 +80,9 @@
             return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
         }
 
-        const barChartCo2Region = () => {
-            // read data
-            var request = new XMLHttpRequest();
-            request.open("GET", "./data/gas_serra.json", false);
+        // read data
+        var request = new XMLHttpRequest();
+            request.open("GET", "./data/ni9m-rezu.json", false);
             request.send(null)
             var items = JSON.parse(request.responseText);
             console.log("items", items);
@@ -98,13 +91,15 @@
             var data = [];
             colors = [];
             //create data
-            items.map(item => {
-                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
-                labels.push(item.Regione)
-                data.push(item['Emissioni in tonnellate equivalenti CO2'])
+            items.filter(filt => { return filt.provincia == 'Brescia'}).map(item => {
+                labels.push(item.comune)
+                data.push(item['recupero_di_materia'])
                 var color = random_rgba();
                 colors.push(color);
             })
+
+        const barChartCo2Region = () => {
+    
             
             // create chart
             var ctx = document.getElementById('myChart').getContext('2d');
@@ -113,7 +108,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        label: 'Percentuale Reciclo nella Provincia di Brescia',
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
@@ -147,27 +142,6 @@
         }
 
         const barChartCo2RegionDoughnout = () => {
-            
-            // read data
-            var request = new XMLHttpRequest();
-            request.open("GET", "./data/gas_serra.json", false);
-            request.send(null)
-            var items = JSON.parse(request.responseText);
-            console.log("items", items);
-
-
-            var labels = [];
-            var data = [];
-            colors = [];
-
-            //create data
-            items.map(item => {
-                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
-                labels.push(item.Regione)
-                data.push(item['Emissioni in tonnellate equivalenti CO2'])
-                var color = random_rgba();
-                colors.push(color);
-            })
 
             var ctx = document.getElementById('myChart2').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -175,7 +149,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        label: 'Percentuale Reciclo nella Provincia di Brescia',
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
@@ -184,8 +158,8 @@
                 },
                 options: {
                     legend: {
-                        display: true,
-                        position: 'right',
+                        display: false,
+                        position: 'bottom',
                         labels: {
                             fontColor: fontLegendaColor,
                         }
@@ -196,27 +170,6 @@
         }
 
         const barChartCo2RegionPie = () => {
-            
-            // read data
-            var request = new XMLHttpRequest();
-            request.open("GET", "./data/gas_serra.json", false);
-            request.send(null)
-            var items = JSON.parse(request.responseText);
-            console.log("items", items);
-
-
-            var labels = [];
-            var data = [];
-            colors = [];
-
-            //create data
-            items.map(item => {
-                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
-                labels.push(item.Regione)
-                data.push(item['Emissioni in tonnellate equivalenti CO2'])
-                var color = random_rgba();
-                colors.push(color);
-            })
 
             var ctx = document.getElementById('myChart3').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -224,7 +177,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        label: 'Percentuale Reciclo nella Provincia di Brescia',
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
@@ -233,7 +186,7 @@
                 },
                 options: {
                     legend: {
-                        display: true,
+                        display: false,
                         position: 'left',
                         labels: {
                             fontColor: fontLegendaColor,
@@ -245,35 +198,14 @@
         }
         
         const barChartCo2RegionPolar = () => {
-            
-            // read data
-            var request = new XMLHttpRequest();
-            request.open("GET", "./data/gas_serra.json", false);
-            request.send(null)
-            var items = JSON.parse(request.responseText);
-            console.log("items", items);
-
-
-            var labels = [];
-            var data = [];
-            colors = [];
-
-            //create data
-            items.map(item => {
-                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
-                labels.push(item.Regione)
-                data.push(item['Emissioni in tonnellate equivalenti CO2'])
-                var color = random_rgba();
-                colors.push(color);
-            })
-
+        
             var ctx = document.getElementById('myChart4').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'polarArea',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        label: 'Percentuale Reciclo nella Provincia di Brescia',
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
@@ -299,27 +231,6 @@
         }
 
         const barChartCo2RegionRadar = () => {
-            
-            // read data
-            var request = new XMLHttpRequest();
-            request.open("GET", "./data/gas_serra.json", false);
-            request.send(null)
-            var items = JSON.parse(request.responseText);
-            console.log("items", items);
-
-
-            var labels = [];
-            var data = [];
-            colors = [];
-
-            //create data
-            items.map(item => {
-                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
-                labels.push(item.Regione)
-                data.push(item['Emissioni in tonnellate equivalenti CO2'])
-                var color = random_rgba();
-                colors.push(color);
-            })
 
             var ctx = document.getElementById('myChart5').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -327,7 +238,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        label: 'Percentuale Reciclo nella Provincia di Brescia',
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
@@ -356,27 +267,6 @@
         }
 
         const barChartCo2RegionLine = () => {
-            
-            // read data
-            var request = new XMLHttpRequest();
-            request.open("GET", "./data/gas_serra.json", false);
-            request.send(null)
-            var items = JSON.parse(request.responseText);
-            console.log("items", items);
-
-
-            var labels = [];
-            var data = [];
-            colors = [];
-
-            //create data
-            items.map(item => {
-                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
-                labels.push(item.Regione)
-                data.push(item['Emissioni in tonnellate equivalenti CO2'])
-                var color = random_rgba();
-                colors.push(color);
-            })
 
             var ctx = document.getElementById('myChart6').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -384,7 +274,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        label: 'Percentuale Reciclo nella Provincia di Brescia',
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
@@ -421,24 +311,7 @@
         }
 
         const barChartCo2Region2 = () => {
-            // read data
-            var request = new XMLHttpRequest();
-            request.open("GET", "./data/gas_serra.json", false);
-            request.send(null)
-            var items = JSON.parse(request.responseText);
-            console.log("items", items);
 
-            var labels = [];
-            var data = [];
-            colors = [];
-            //create data
-            items.map(item => {
-                console.log("item:", item['Emissioni in tonnellate equivalenti CO2'])
-                labels.push(item.Regione)
-                data.push(item['Emissioni in tonnellate equivalenti CO2'])
-                var color = random_rgba();
-                colors.push(color);
-            })
             
             // create chart
             var ctx = document.getElementById('myChart7').getContext('2d');
@@ -447,7 +320,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Emissioni in tonnellate equivalenti CO2 per Regioni Italiane',
+                        label: 'Percentuale Reciclo nella Provincia di Brescia',
                         data: data,
                         backgroundColor: colors,
                         borderColor: colors,
@@ -485,8 +358,6 @@
 
 
         barChartCo2Region();
-        barChartCo2RegionDoughnout();
-        barChartCo2RegionPie();
         barChartCo2RegionPolar();
         barChartCo2RegionRadar();
         barChartCo2RegionLine();
